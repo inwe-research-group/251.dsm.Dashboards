@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -49,6 +50,17 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    //    Retrofit
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+    //    ViewModel
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
 
     //Dashboards
     implementation("com.github.tehras:charts:0.2.4-alpha")
