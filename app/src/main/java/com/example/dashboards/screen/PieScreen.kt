@@ -1,8 +1,16 @@
 package com.example.dashboards.screen
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,6 +41,7 @@ fun PieScreen(){
 fun Pie(){
     val datos= DatosDashboard.datos
     var slices=ArrayList<PieChartData.Slice>()
+    val total=datos.sumOf { it.value.toDouble() }.toFloat()
 
     datos.mapIndexed { index, datos ->
         slices.add(
@@ -41,15 +50,40 @@ fun Pie(){
             color= Utils().colorAleatorio()
         ))
     }
-    PieChart(
-        modifier= Modifier
+    Column(
+        modifier = Modifier
             .padding(30.dp,80.dp)
-            .height(300.dp),
-        sliceDrawer= SimpleSliceDrawer(
-            sliceThickness=100f
-        ),
-        pieChartData=PieChartData(
-            slices=slices
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        PieChart(
+            modifier= Modifier
+                .padding(30.dp,80.dp)
+                .height(300.dp),
+            sliceDrawer= SimpleSliceDrawer(
+                sliceThickness=100f
+            ),
+            pieChartData=PieChartData(
+                slices=slices
+            )
         )
-    )
+        Spacer(modifier=Modifier.height(1.dp))
+        //leyenda con % y valores
+        datos.forEach{
+            val porcentaje=(it.value/total*100).toInt()
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier=Modifier.padding(vertical=4.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(16.dp)
+                        .background(Utils().colorAleatorio(), shape = CircleShape)
+                )
+                Spacer(modifier=Modifier.width(8.dp))
+                Text("${it.label}: ${it.value} (${porcentaje}%)")
+            }
+        }
+    }
+
 }
