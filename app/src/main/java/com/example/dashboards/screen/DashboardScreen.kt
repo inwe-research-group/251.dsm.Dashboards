@@ -18,4 +18,5 @@ fun DashboardScreen(){
     val datos : List<NPersonasXTipoDocumento> = uiState.datosDashboard
     //llamar a los screens
     BarrasScreen(datos)
+    PieScreen(datos)
 }
