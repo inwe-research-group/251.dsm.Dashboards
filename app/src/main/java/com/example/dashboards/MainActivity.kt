@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.dashboards.screen.BarrasScreen
+import com.example.dashboards.screen.PieScreen
 import com.example.dashboards.ui.theme.DashboardsTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,6 +30,7 @@ class MainActivity : ComponentActivity() {
                             .verticalScroll(rememberScrollState())
                     ){
                         BarrasScreen()
+                        PieScreen()
                     }
                 }
             }
