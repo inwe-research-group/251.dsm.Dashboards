@@ -21,7 +21,7 @@ data class DashboardUiState(
 class DashboardViewModel(private val dashboardRepository: DashboardRepository) : ViewModel(){
     private val _uiState = MutableStateFlow(DashboardUiState())
     val uiState: StateFlow<DashboardUiState> = _uiState.asStateFlow()
-
+    /*
     fun cargarDashboard(){
         viewModelScope.launch {
             try{
@@ -34,7 +34,29 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository) :
             }
         }
 
-    }
+    }*/
+    fun cargarDashboard() {
+       viewModelScope.launch {
+           try {
+               val dashboard_get = dashboardRepository.getNPersonasXTipoDocumento()
+
+               // ✅ Mostrar los datos en consola
+               println("✅ Datos recibidos:")
+               dashboard_get.forEach {
+                   println("Descripción: ${it.descripcion}, Cantidad: ${it.cantidad}")
+               }
+
+               _uiState.value = _uiState.value.copy(datosDashboard = dashboard_get)
+           } catch (e: Exception) {
+               println("❌ Error general al cargar dashboard: ${e.message}")
+               _uiState.value = _uiState.value.copy(flag_error_dashboard = true)
+           } catch (e: HttpException) {
+               println("❌ Error HTTP al cargar dashboard: ${e.message}")
+               _uiState.value = _uiState.value.copy(flag_error_dashboard = true)
+           }
+       }
+   }
+
     fun resetFlags(){
         _uiState.value=_uiState.value.copy(flag_error_dashboard = false)
     }

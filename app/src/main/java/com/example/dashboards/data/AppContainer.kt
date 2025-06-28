@@ -12,7 +12,7 @@ interface AppContainer {
     val dashboardRepository: DashboardRepository
 }
 class DefaultAppContainer: AppContainer{
-    private val BASE_URL= "http://192.168.56.1:8080" //no usar localhost
+    private val BASE_URL= "http://127.0.0.1:8080" //no usar localhost
     private val retrofit: Retrofit = Retrofit.Builder()
         .addConverterFactory(Json{ignoreUnknownKeys = true}.asConverterFactory("application/json".toMediaType()))
         .baseUrl(BASE_URL)
